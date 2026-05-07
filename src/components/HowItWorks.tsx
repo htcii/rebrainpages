@@ -1,59 +1,182 @@
-const steps = [
+"use client";
+
+import { useState } from "react";
+
+const faqs = [
   {
-    number: "01",
-    title: "単語帳を作る",
-    desc: "テキスト入力・AI自動生成・テンプレートから単語帳を作成。テスト範囲をすぐに学習開始できます。",
-    emoji: "📚",
-    color: "from-violet-500 to-purple-600",
+    q: "どのデバイスで使用できますか？",
+    a: "iOS18.2以降のiPhone/iPadで利用できます。他OS向けに配信する予定は今のところありません。",
   },
   {
-    number: "02",
-    title: "好きなモードで学ぶ",
-    desc: "フラッシュカード・タイピング・4択クイズ・赤シートから、その日に合ったモードを選択。",
-    emoji: "🎮",
-    color: "from-blue-500 to-cyan-600",
+    q: "単語のデータはどうやって入手すればいいですか？",
+    a: "ご自身で単語を登録していただくか、近距離共有を使用してお友達と共有することも可能です。また、CSVのインポート・Quizletからのインポートにも対応しております。アプリ内のコミュニティからダウンロードすることもできます。",
   },
   {
-    number: "03",
-    title: "AIが最適化してくれる",
-    desc: "学習データをAIが分析し、忘れそうな単語を自動で復習リストへ追加。効率的に記憶が定着します。",
-    emoji: "🤖",
-    color: "from-pink-500 to-rose-600",
+    q: "アプリに不具合があります",
+    a: "不具合を見つけた場合は、できるだけ詳細な情報（バグの内容、使用しているiOSバージョンなど）を添えて、アプリ内設定のフォームまたはこのサイトの下部「フィードバック」からご報告ください。このアプリは個人開発のため対応に時間がかかります。申し訳ありません。",
+  },
+  {
+    q: "アプリを紹介したいです",
+    a: "このサイトのリンクを共有していただければ嬉しいです。配信プラットフォーム・ブログなどでご紹介いただける場合はぜひ報告していただけると嬉しいです！",
   },
 ];
 
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      className="faq-item"
+      style={{ padding: "0" }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "20px 0",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          gap: 16,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "'Noto Sans JP', sans-serif",
+            fontWeight: 700,
+            fontSize: 16,
+            color: "#fff",
+            textAlign: "left",
+          }}
+        >
+          {q}
+        </span>
+        <span
+          style={{
+            color: "rgba(255,255,255,0.5)",
+            fontSize: 20,
+            flexShrink: 0,
+            transition: "transform 0.2s",
+            transform: open ? "rotate(45deg)" : "rotate(0deg)",
+          }}
+        >
+          +
+        </span>
+      </button>
+      {open && (
+        <p
+          style={{
+            fontFamily: "'Noto Sans JP', sans-serif",
+            fontWeight: 400,
+            fontSize: 14,
+            color: "rgba(255,255,255,0.65)",
+            lineHeight: 1.8,
+            margin: "0 0 20px",
+          }}
+        >
+          {a}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-violet-400 text-sm font-semibold tracking-widest uppercase mb-3">How It Works</p>
-          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
-            たった3ステップ
-          </h2>
-          <p className="text-white/50 text-lg max-w-xl mx-auto">
-            シンプルな操作で、すぐに科学的な学習を始められます。
-          </p>
-        </div>
+    <section
+      id="faq"
+      className="dotted-top"
+      style={{
+        position: "relative",
+        zIndex: 1,
+        padding: "80px 30px 100px",
+      }}
+    >
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: 60,
+          }}
+        >
+          {/* Help Center CTA */}
+          <div>
+            <p className="feature-tag" style={{ marginBottom: 12 }}>Help Center</p>
+            <h2
+              style={{
+                fontFamily: "Figtree, sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(28px, 3.5vw, 44px)",
+                color: "#fff",
+                margin: "0 0 20px",
+              }}
+            >
+              お友達に紹介してください！
+            </h2>
+            <p
+              style={{
+                fontFamily: "'Noto Sans JP', sans-serif",
+                fontWeight: 400,
+                fontSize: 15,
+                color: "rgba(255,255,255,0.65)",
+                lineHeight: 1.7,
+                margin: "0 0 28px",
+              }}
+            >
+              アプリをより多くのユーザーに使ってもらうことでアプリがより良くなります！
+            </p>
+            <button
+              onClick={() => {
+                if (navigator.share) {
+                  navigator.share({
+                    title: "ReBrain - 単語帳・暗記フラッシュカードアプリ",
+                    url: "https://rebrainapp.studio.site/",
+                  });
+                }
+              }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                background: "#fff",
+                color: "#5460f5",
+                fontFamily: "'Noto Sans JP', sans-serif",
+                fontWeight: 700,
+                fontSize: 15,
+                padding: "12px 28px",
+                borderRadius: 99,
+                border: "none",
+                cursor: "pointer",
+                transition: "opacity 0.2s",
+              }}
+            >
+              🔗 紹介する
+            </button>
+          </div>
 
-        <div className="relative">
-          {/* Connector line */}
-          <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[70%] h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent hidden lg:block" />
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {steps.map((s, i) => (
-              <div key={s.number} className="flex flex-col items-center text-center">
-                <div className={`relative w-32 h-32 rounded-3xl bg-gradient-to-br ${s.color} flex flex-col items-center justify-center mb-6 shadow-2xl`}>
-                  <span className="text-4xl mb-1">{s.emoji}</span>
-                  <span className="text-white/60 text-xs font-bold">STEP {i + 1}</span>
-                  <div className="absolute -top-2 -right-2 w-7 h-7 bg-[#0a0618] border border-violet-500/50 rounded-full flex items-center justify-center">
-                    <span className="text-violet-400 text-xs font-black">{s.number.slice(1)}</span>
-                  </div>
-                </div>
-                <h3 className="text-white font-bold text-xl mb-3">{s.title}</h3>
-                <p className="text-white/50 text-sm leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
+          {/* FAQ */}
+          <div>
+            <p className="feature-tag" style={{ marginBottom: 12 }}>FAQ</p>
+            <h2
+              style={{
+                fontFamily: "Figtree, sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(28px, 3.5vw, 44px)",
+                color: "#fff",
+                margin: "0 0 24px",
+              }}
+            >
+              Frequently Asked Questions
+            </h2>
+            <div>
+              {faqs.map((item) => (
+                <FaqItem key={item.q} q={item.q} a={item.a} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -1,81 +1,174 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+
 const modes = [
-  {
-    emoji: "🃏",
-    name: "フラッシュカード",
-    desc: "左右スワイプで直感的に記憶を確認。スピーディーに大量の単語をこなせます。",
-    tag: "定番",
-    gradient: "from-violet-600/20 to-indigo-600/20",
-    border: "border-violet-500/30",
-    tagColor: "bg-violet-500/20 text-violet-300",
-  },
-  {
-    emoji: "⌨️",
-    name: "タイピング",
-    desc: "実際にスペルを入力することで、書き取り力と記憶の定着度を同時に鍛えられます。",
-    tag: "定着力UP",
-    gradient: "from-blue-600/20 to-cyan-600/20",
-    border: "border-blue-500/30",
-    tagColor: "bg-blue-500/20 text-blue-300",
-  },
-  {
-    emoji: "🎯",
-    name: "4択クイズ",
-    desc: "4つの選択肢から正解を選ぶクイズ形式。文脈理解と識別力を高めます。",
-    tag: "理解度UP",
-    gradient: "from-green-600/20 to-emerald-600/20",
-    border: "border-green-500/30",
-    tagColor: "bg-green-500/20 text-green-300",
-  },
-  {
-    emoji: "🟥",
-    name: "赤シートモード",
-    desc: "赤いシートで答えを隠す、昔ながらの暗記法をデジタルで再現。紙の感覚でスラスラ覚えられます。",
-    tag: "懐かしの学習法",
-    gradient: "from-red-600/20 to-orange-600/20",
-    border: "border-red-500/30",
-    tagColor: "bg-red-500/20 text-red-300",
-  },
+  { id: "flash", label: "フラッシュカード", icon: "🃏" },
+  { id: "typing", label: "タイピング", icon: "⌨️" },
+  { id: "quiz", label: "クイズ", icon: "🎯" },
+  { id: "red", label: "赤シート", icon: "🟥" },
 ];
 
-export default function LearningModes() {
-  return (
-    <section className="py-24 px-6 relative">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-950/20 to-transparent" />
-      </div>
+const modeDetails: Record<string, { title: string; desc: string }> = {
+  flash: {
+    title: "フラッシュカード",
+    desc: "カードをスワイプして素早く記憶を確認。スクロールするだけで意味を確認できます。",
+  },
+  typing: {
+    title: "タイピング",
+    desc: "実際にスペルを入力して書き取り力を強化。入力することで記憶の定着率が大幅にアップします。",
+  },
+  quiz: {
+    title: "クイズ",
+    desc: "4択クイズで理解度を確認。複数の選択肢から選ぶことで識別力と文脈理解を深めます。",
+  },
+  red: {
+    title: "赤シートモード",
+    desc: "\"赤シート\"みたいに隠して学習。昔ながらの暗記法をデジタルで快適に再現しました。",
+  },
+};
 
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-violet-400 text-sm font-semibold tracking-widest uppercase mb-3">Learning Modes</p>
-          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
-            4つの学習モード
+export default function LearningModes() {
+  const [active, setActive] = useState("flash");
+
+  return (
+    <section
+      id="learn"
+      className="dotted-top"
+      style={{
+        position: "relative",
+        zIndex: 1,
+        padding: "80px 30px 100px",
+      }}
+    >
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: 50 }}>
+          <p className="feature-tag" style={{ marginBottom: 12 }}>Learning</p>
+          <h2
+            style={{
+              fontFamily: "Figtree, sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(32px, 4vw, 52px)",
+              color: "#fff",
+              margin: "0 0 12px",
+            }}
+          >
+            様々な学習方法
           </h2>
-          <p className="text-white/50 text-lg max-w-xl mx-auto">
-            その日の気分や学習段階に合わせて、最適なモードで学べます。
+          <p
+            style={{
+              fontFamily: "'Noto Sans JP', sans-serif",
+              fontWeight: 500,
+              fontSize: 16,
+              color: "rgba(255,255,255,0.65)",
+              margin: 0,
+            }}
+          >
+            様々な学習方法で飽きずに学習できます
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* Mode tabs */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 8,
+            flexWrap: "wrap",
+            marginBottom: 40,
+          }}
+        >
           {modes.map((m) => (
-            <div
-              key={m.name}
-              className={`relative rounded-2xl p-6 card-hover border ${m.border} bg-gradient-to-br ${m.gradient} overflow-hidden`}
+            <button
+              key={m.id}
+              onClick={() => setActive(m.id)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "10px 22px",
+                borderRadius: 99,
+                border: active === m.id
+                  ? "2px solid rgba(255,255,255,0.8)"
+                  : "2px solid rgba(255,255,255,0.2)",
+                background: active === m.id
+                  ? "rgba(255,255,255,0.2)"
+                  : "rgba(255,255,255,0.05)",
+                color: active === m.id ? "#fff" : "rgba(255,255,255,0.6)",
+                fontFamily: "'Noto Sans JP', sans-serif",
+                fontWeight: 700,
+                fontSize: 15,
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
             >
-              <div className="flex items-start gap-4">
-                <span className="text-4xl flex-shrink-0">{m.emoji}</span>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-white font-bold text-lg">{m.name}</h3>
-                    <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${m.tagColor}`}>
-                      {m.tag}
-                    </span>
-                  </div>
-                  <p className="text-white/60 text-sm leading-relaxed">{m.desc}</p>
-                </div>
-              </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-white/[0.03] blur-xl" />
-            </div>
+              <span>{m.icon}</span>
+              {m.label}
+            </button>
           ))}
+        </div>
+
+        {/* Detail card */}
+        <div
+          className="glass-card"
+          style={{
+            borderRadius: 24,
+            padding: "40px 48px",
+            maxWidth: 700,
+            margin: "0 auto",
+            textAlign: "center",
+          }}
+        >
+          <div style={{ fontSize: 48, marginBottom: 16 }}>
+            {modes.find((m) => m.id === active)?.icon}
+          </div>
+          <h3
+            style={{
+              fontFamily: "'Noto Sans JP', sans-serif",
+              fontWeight: 800,
+              fontSize: 24,
+              color: "#fff",
+              margin: "0 0 12px",
+            }}
+          >
+            {modeDetails[active].title}
+          </h3>
+          <p
+            style={{
+              fontFamily: "'Noto Sans JP', sans-serif",
+              fontWeight: 400,
+              fontSize: 16,
+              color: "rgba(255,255,255,0.7)",
+              lineHeight: 1.7,
+              margin: 0,
+            }}
+          >
+            {modeDetails[active].desc}
+          </p>
+        </div>
+
+        {/* Screenshot */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: 60,
+          }}
+        >
+          <Image
+            src="/assets/s-1920x1920_v-frms_webp_7a1f2636-6414-4345-b432-d028ef354759_regular.webp"
+            alt="学習モードのスクリーンショット"
+            width={380}
+            height={380}
+            style={{
+              maxWidth: "min(380px, 90vw)",
+              height: "auto",
+              objectFit: "contain",
+              filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.2))",
+            }}
+          />
         </div>
       </div>
     </section>

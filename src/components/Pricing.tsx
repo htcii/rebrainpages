@@ -1,122 +1,289 @@
-import { Check, X } from "lucide-react";
-
-const freeFeatures = [
-  { label: "単語帳の作成・編集", available: true },
-  { label: "フラッシュカード学習", available: true },
-  { label: "タイピングモード", available: true },
-  { label: "4択クイズモード", available: true },
-  { label: "赤シートモード", available: true },
-  { label: "基本の学習統計", available: true },
-  { label: "AI単語帳生成（月3回）", available: true },
-  { label: "カスタムテーマ", available: false },
-  { label: "無制限AI生成", available: false },
-  { label: "クラウド同期", available: false },
-];
-
-const proFeatures = [
-  { label: "単語帳の作成・編集", available: true },
-  { label: "フラッシュカード学習", available: true },
-  { label: "タイピングモード", available: true },
-  { label: "4択クイズモード", available: true },
-  { label: "赤シートモード", available: true },
-  { label: "詳細な学習統計・グラフ", available: true },
-  { label: "AI単語帳生成（無制限）", available: true },
-  { label: "カスタムテーマ", available: true },
-  { label: "無制限AI生成", available: true },
-  { label: "クラウド同期", available: true },
-];
-
 const APP_STORE_URL =
   "https://apps.apple.com/jp/app/rebrain-%E5%8D%98%E8%AA%9E%E5%B8%B3%E3%82%A2%E3%83%97%E3%83%AA/id6742406188";
 
+const freeFeatures = [
+  "アプリ全体に広告なし",
+  "セットの作成（3アイテムまで）",
+  "すべての学習方法",
+  "スマート学習機能",
+];
+
+const proFeatures = [
+  "フリープランの全機能",
+  "セットの作成（無制限）",
+  "セットのiCloud同期",
+  "アプリテーマ・フォントの変更",
+  "アプリの背景画像の設定",
+  "アプリアイコンの変更",
+];
+
+function CheckIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      style={{ flexShrink: 0 }}
+    >
+      <circle cx="8" cy="8" r="8" fill="rgba(255,255,255,0.15)" />
+      <path
+        d="M5 8l2 2 4-4"
+        stroke="#fff"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-24 px-6 relative">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
-      </div>
-
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-violet-400 text-sm font-semibold tracking-widest uppercase mb-3">Pricing</p>
-          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
-            まずは無料で始めよう
+    <section
+      id="pricing"
+      className="dotted-top"
+      style={{
+        position: "relative",
+        zIndex: 1,
+        padding: "80px 30px 100px",
+      }}
+    >
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 16 }}>
+          <p className="feature-tag" style={{ marginBottom: 12 }}>Pricing</p>
+          <h2
+            style={{
+              fontFamily: "Figtree, sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(32px, 4vw, 52px)",
+              color: "#fff",
+              margin: "0 0 12px",
+            }}
+          >
+            料金
           </h2>
-          <p className="text-white/50 text-lg max-w-xl mx-auto">
-            主要な学習機能はすべて無料。さらに便利な機能はProプランで。
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Free plan */}
-          <div className="glass rounded-2xl p-8 border border-white/10">
-            <div className="mb-6">
-              <p className="text-white/50 text-sm font-semibold mb-1">Free</p>
-              <div className="flex items-end gap-2">
-                <span className="text-5xl font-black text-white">¥0</span>
-                <span className="text-white/40 pb-1">/ 月</span>
-              </div>
-              <p className="text-white/40 text-sm mt-2">登録不要ですぐ始められます</p>
+        <p
+          style={{
+            fontFamily: "'Noto Sans JP', sans-serif",
+            fontWeight: 400,
+            fontSize: 15,
+            color: "rgba(255,255,255,0.65)",
+            textAlign: "center",
+            margin: "0 0 48px",
+            lineHeight: 1.7,
+          }}
+        >
+          広告なし・学習に関する機能は無料で提供
+          <br />
+          少しでも多くの方の学習のサポートができればいいなと、、！！
+          <br />
+          支援していただける方は有料プランをご購入いただけると開発の励みになります；；
+        </p>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: 24,
+            maxWidth: 780,
+            margin: "0 auto",
+          }}
+        >
+          {/* Free */}
+          <div
+            className="glass-card"
+            style={{ borderRadius: 24, padding: "40px 36px" }}
+          >
+            <h3
+              style={{
+                fontFamily: "Figtree, sans-serif",
+                fontWeight: 700,
+                fontSize: 18,
+                color: "rgba(255,255,255,0.6)",
+                margin: "0 0 8px",
+              }}
+            >
+              Free
+            </h3>
+            <div style={{ display: "flex", alignItems: "flex-end", gap: 4, marginBottom: 8 }}>
+              <span
+                style={{
+                  fontFamily: "Figtree, sans-serif",
+                  fontWeight: 800,
+                  fontSize: 52,
+                  color: "#fff",
+                  lineHeight: 1,
+                }}
+              >
+                ¥ 0
+              </span>
             </div>
 
             <a
               href={APP_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center glass border border-white/20 text-white font-semibold py-3 rounded-xl hover:bg-white/10 transition-colors mb-8"
+              style={{
+                display: "block",
+                textAlign: "center",
+                border: "2px solid rgba(255,255,255,0.3)",
+                background: "rgba(255,255,255,0.08)",
+                color: "#fff",
+                fontFamily: "'Noto Sans JP', sans-serif",
+                fontWeight: 700,
+                fontSize: 15,
+                padding: "12px",
+                borderRadius: 12,
+                textDecoration: "none",
+                margin: "20px 0 24px",
+                transition: "background 0.2s",
+              }}
             >
               無料でダウンロード
             </a>
 
-            <ul className="space-y-3">
+            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               {freeFeatures.map((f) => (
-                <li key={f.label} className="flex items-center gap-3 text-sm">
-                  {f.available ? (
-                    <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
-                  ) : (
-                    <X className="w-4 h-4 text-white/20 flex-shrink-0" />
-                  )}
-                  <span className={f.available ? "text-white/70" : "text-white/30"}>
-                    {f.label}
+                <li key={f} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <CheckIcon />
+                  <span
+                    style={{
+                      fontFamily: "'Noto Sans JP', sans-serif",
+                      fontWeight: 400,
+                      fontSize: 14,
+                      color: "rgba(255,255,255,0.75)",
+                    }}
+                  >
+                    {f}
                   </span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Pro plan */}
-          <div className="relative rounded-2xl p-8 bg-gradient-to-br from-violet-900/60 to-indigo-900/60 border border-violet-500/40 overflow-hidden">
-            <div className="absolute top-4 right-4 bg-violet-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-              おすすめ
-            </div>
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-violet-600/20 rounded-full blur-2xl" />
+          {/* Pro */}
+          <div
+            style={{
+              borderRadius: 24,
+              padding: "40px 36px",
+              background: "rgba(255,255,255,0.18)",
+              border: "2px solid rgba(255,255,255,0.4)",
+              backdropFilter: "blur(20px)",
+              position: "relative",
+            }}
+          >
+            <h3
+              style={{
+                fontFamily: "Figtree, sans-serif",
+                fontWeight: 700,
+                fontSize: 18,
+                color: "rgba(255,255,255,0.8)",
+                margin: "0 0 8px",
+              }}
+            >
+              ReBrain Pro
+            </h3>
 
-            <div className="mb-6">
-              <p className="text-violet-300 text-sm font-semibold mb-1">Pro</p>
-              <div className="flex items-end gap-2">
-                <span className="text-5xl font-black text-white">¥480</span>
-                <span className="text-white/40 pb-1">/ 月</span>
-              </div>
-              <p className="text-white/40 text-sm mt-2">年間プランなら¥3,800（約35%お得）</p>
+            <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginBottom: 4, flexWrap: "wrap" }}>
+              <span
+                style={{
+                  fontFamily: "Figtree, sans-serif",
+                  fontWeight: 800,
+                  fontSize: 52,
+                  color: "#fff",
+                  lineHeight: 1,
+                }}
+              >
+                ¥ 250
+              </span>
+              <span
+                style={{
+                  fontFamily: "Figtree, sans-serif",
+                  fontWeight: 600,
+                  fontSize: 16,
+                  color: "rgba(255,255,255,0.6)",
+                  paddingBottom: 8,
+                }}
+              >
+                / 月
+              </span>
             </div>
+            <p
+              style={{
+                fontFamily: "'Noto Sans JP', sans-serif",
+                fontWeight: 400,
+                fontSize: 13,
+                color: "rgba(255,255,255,0.5)",
+                margin: "0 0 0",
+              }}
+            >
+              年払い¥980/年 &nbsp;|&nbsp; 買い切り版¥1,800
+            </p>
 
             <a
               href={APP_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center bg-violet-600 hover:bg-violet-500 text-white font-semibold py-3 rounded-xl transition-colors mb-8"
+              style={{
+                display: "block",
+                textAlign: "center",
+                background: "#fff",
+                color: "#5460f5",
+                fontFamily: "Figtree, sans-serif",
+                fontWeight: 800,
+                fontSize: 15,
+                padding: "13px",
+                borderRadius: 12,
+                textDecoration: "none",
+                margin: "20px 0 24px",
+                transition: "opacity 0.2s",
+              }}
             >
-              Proを試す（7日間無料）
+              割引を利用する
             </a>
 
-            <ul className="space-y-3 relative">
+            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               {proFeatures.map((f) => (
-                <li key={f.label} className="flex items-center gap-3 text-sm">
-                  <Check className="w-4 h-4 text-violet-400 flex-shrink-0" />
-                  <span className="text-white/80">{f.label}</span>
+                <li key={f} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <CheckIcon />
+                  <span
+                    style={{
+                      fontFamily: "'Noto Sans JP', sans-serif",
+                      fontWeight: 400,
+                      fontSize: 14,
+                      color: "rgba(255,255,255,0.85)",
+                    }}
+                  >
+                    {f}
+                  </span>
                 </li>
               ))}
             </ul>
+
+            <p
+              style={{
+                fontFamily: "'Noto Sans JP', sans-serif",
+                fontWeight: 400,
+                fontSize: 13,
+                color: "rgba(255,255,255,0.45)",
+                margin: "20px 0 0",
+                textAlign: "center",
+              }}
+            >
+              またはこちらからも支援できます
+              <br />
+              <a
+                href="https://www.buymeacoffee.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "rgba(255,255,255,0.6)", textDecoration: "underline" }}
+              >
+                Buy me a coffee ☕
+              </a>
+            </p>
           </div>
         </div>
       </div>

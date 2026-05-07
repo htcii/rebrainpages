@@ -1,65 +1,145 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0618;
-  --foreground: #f0eaff;
+  --bg: #5460f5;
+  --bg-dark: #3d4de0;
+  --cyan: #9ffaff;
+  --pink: #ff94eb;
+  --indigo-light: #6670ff;
+  --text: #ffffff;
+  --text-sub: rgba(255,255,255,0.8);
+  --text-dim: rgba(255,255,255,0.5);
+  --text-dimmer: rgba(255,255,255,0.35);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-16px); }
+.font-figtree {
+  font-family: 'Figtree', 'Noto Sans JP', sans-serif;
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); }
-  50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.8); }
+/* Blurred background orbs */
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
 }
 
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.bg-orb-cyan {
+  position: absolute;
+  width: 50%;
+  height: 50vh;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff, #9ffaff);
+  filter: blur(100px);
+  opacity: 0.45;
+  bottom: 5%;
+  left: -15%;
 }
 
-.animate-float {
-  animation: float 4s ease-in-out infinite;
+.bg-orb-pink {
+  position: absolute;
+  width: 45%;
+  height: 50vh;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff, #ff94eb);
+  filter: blur(100px);
+  opacity: 0.45;
+  top: 0%;
+  right: -8%;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+/* Glass card */
+.glass-card {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, #a78bfa, #60a5fa, #f0abfc);
-  background-size: 200% 200%;
-  animation: gradient-shift 4s ease infinite;
+.glass-card-white {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+/* Dotted top border */
+.dotted-top {
+  border-top: 6px dotted rgba(255,255,255,0.15);
+}
+
+/* Large decorative text */
+.deco-text {
+  color: transparent;
+  background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-size: 22vw;
+  font-weight: 900;
+  line-height: 0.9;
+  text-align: center;
+  width: 100%;
+  pointer-events: none;
+  user-select: none;
 }
 
-.card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Badge */
+.badge-pro {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 99px;
+  display: inline-block;
 }
 
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+/* Divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  margin: 0;
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Hover link */
+a.nav-link {
+  color: rgba(255,255,255,0.8);
+  font-weight: 600;
+  font-size: 14px;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+a.nav-link:hover {
+  color: #fff;
+  text-shadow: 0 0 18px rgba(255,255,255,0.8);
+}
+
+/* FAQ accordion */
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+/* Feature tag */
+.feature-tag {
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
